@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.4.1)
+set(CMAKE_C_FLAGS "-Wall -Werror -std=gnu99 -Wno-unknown-pragmas")
+set(CMAKE_CXX_FLAGS "-std=gnu++11 -Wall -Werror -Wno-narrowing -Wno-unknown-pragmas")
+include_directories(
+        ../src
+        ../ext_src/glfw
+        ../ext_src/imgui
+        ../ext_src/uthash
+        ../ext_src/stb
+)
+set(GOXEL_SOURCES
+        ../src/action.c
+        ../src/assets.c
+        ../src/assets.inl
+        ../src/block.c
+        ../src/box.h
+        ../src/camera.c
+        ../src/color.c
+        #../src/dialogs.c
+        ../src/dicom.c
+        ../src/goxel.c
+        ../src/goxel.h
+        ../src/gui.cpp
+        ../src/image.c
+        ../src/ivec.h
+        #../src/main.c
+        ../src/mesh.c
+        ../src/model3d.c
+        ../src/mustache.c
+        ../src/palette.c
+        ../src/plane.h
+        ../src/povray.c
+        ../src/procedural.c
+        ../src/profiler.c
+        ../src/quantization.c
+        ../src/qubicle.c
+        ../src/render.c
+        ../src/save.c
+        ../src/shape.c
+        #../src/system.c
+        ../src/texture.c
+        ../src/tools.c
+        ../src/utils.c
+        ../src/vec.h
+        ../src/vox.c
+        ../src/wavefront.c)
+add_library(goxel SHARED ${GOXEL_SOURCES})
+set_target_properties(goxel PROPERTIES COMPILE_FLAGS "-DGLES2")

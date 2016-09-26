@@ -5,4 +5,7 @@
 oxel
 .sconsign.dblite
 goxel
+# Android Build Related
 local.properties
+.gradle
+.idea
