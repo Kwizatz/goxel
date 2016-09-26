@@ -43,6 +43,13 @@ set(GOXEL_SOURCES
         ../src/utils.c
         ../src/vec.h
         ../src/vox.c
-        ../src/wavefront.c)
+        ../src/wavefront.c
+        ../ext_src/imgui/imconfig.h
+        ../ext_src/imgui/imgui.cpp
+        ../ext_src/imgui/imgui.h
+        ../ext_src/imgui/imgui_draw.cpp
+        ../ext_src/imgui/imgui_internal.h
+        )
 add_library(goxel SHARED ${GOXEL_SOURCES})
-set_target_properties(goxel PROPERTIES COMPILE_FLAGS "-DGLES2")
+set_target_properties(goxel PROPERTIES COMPILE_FLAGS "-DGLES3")
+target_link_libraries(goxel GLESv3 z)
