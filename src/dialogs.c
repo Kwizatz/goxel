@@ -17,8 +17,9 @@
  */
 
 #include "goxel.h"
-
-#if defined __linux__
+#if defined __ANDROID__
+bool dialog_open(int flags, const char *filters, char **out){return false;}
+#elif defined __linux__
 
 // GTK implementation.
 #include <gtk/gtk.h>

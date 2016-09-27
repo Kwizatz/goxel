@@ -16,14 +16,12 @@ set(GOXEL_SOURCES
         ../src/box.h
         ../src/camera.c
         ../src/color.c
-        #../src/dialogs.c
         ../src/dicom.c
         ../src/goxel.c
         ../src/goxel.h
         ../src/gui.cpp
         ../src/image.c
         ../src/ivec.h
-        #../src/main.c
         ../src/mesh.c
         ../src/model3d.c
         ../src/mustache.c
@@ -37,7 +35,6 @@ set(GOXEL_SOURCES
         ../src/render.c
         ../src/save.c
         ../src/shape.c
-        #../src/system.c
         ../src/texture.c
         ../src/tools.c
         ../src/utils.c
@@ -49,7 +46,14 @@ set(GOXEL_SOURCES
         ../ext_src/imgui/imgui.h
         ../ext_src/imgui/imgui_draw.cpp
         ../ext_src/imgui/imgui_internal.h
+        # These seem to need modifications:
+        ../src/dialogs.c
+        ../src/system.c
+        # Main we'll have to reimplement.
+        #../src/main.c
         )
+
+set_source_files_properties(../ext_src/imgui/imgui.cpp PROPERTIES COMPILE_FLAGS "-DIMGUI_INCLUDE_IMGUI_USER_INL" )
 add_library(goxel SHARED ${GOXEL_SOURCES})
 set_target_properties(goxel PROPERTIES COMPILE_FLAGS "-DGLES3")
 target_link_libraries(goxel GLESv3 z)

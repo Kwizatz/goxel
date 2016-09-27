@@ -135,17 +135,18 @@ enum {
 #   ifdef GLES2
 #       include <GLES2/gl2.h>
 #       include <GLES2/gl2ext.h>
-static inline void glDrawBuffer(const GLenum buf)
-{
-    glDrawBuffersExt(1,&buf);
-}
+        static inline void glDrawBuffer(const GLenum buf)
+        {
+            glDrawBuffersEXT(1,&buf);
+        }
+#       define glReadBuffer(X) glReadBufferNV(X)
 #   elif defined(GLES3)
 #       include <GLES3/gl3.h>
 #       include <GLES3/gl3ext.h>
-static inline void glDrawBuffer(const GLenum buf)
-{
-    glDrawBuffers(1,&buf);
-}
+        static inline void glDrawBuffer(const GLenum buf)
+        {
+            glDrawBuffers(1,&buf);
+        }
 #   else
 #       include <GL/gl.h>
 #   endif

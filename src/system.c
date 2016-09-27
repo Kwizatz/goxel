@@ -120,7 +120,20 @@ GLuint sys_get_screen_framebuffer(void)
     return 0;
 }
 
-#ifdef __linux__
+#if defined(__ANDROID__)
+
+/* Doing nothing for now. */
+const char *sys_get_clipboard_text(void)
+{
+    return NULL;
+}
+
+void sys_set_clipboard_text(const char *text)
+{
+    (void)text;
+}
+
+#elif defined (__linux__)
 
 #include <gtk/gtk.h>
 
