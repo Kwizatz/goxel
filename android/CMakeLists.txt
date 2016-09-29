@@ -1,4 +1,12 @@
 cmake_minimum_required(VERSION 3.4.1)
+find_package(Java COMPONENTS Development)
+
+add_custom_command(OUTPUT com_aeongames_goxel_Goxel.h
+	COMMAND ${Java_JAVAH_EXECUTABLE} ARGS "-classpath" "$ENV{CLASSPATH};${CMAKE_CURRENT_SOURCE_DIR}/src/main/java" "com.aeongames.goxel.Goxel"
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/main/java/com/aeongames/goxel/Goxel.java
+	#WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src/main/java
+	)
+
 set(CMAKE_C_FLAGS "-Wall -Werror -std=gnu99 -Wno-unknown-pragmas")
 set(CMAKE_CXX_FLAGS "-std=gnu++11 -Wall -Werror -Wno-narrowing -Wno-unknown-pragmas")
 include_directories(
@@ -9,6 +17,7 @@ include_directories(
         ../ext_src/stb
 )
 set(GOXEL_SOURCES
+		com_aeongames_goxel_Goxel.h
         ../src/action.c
         ../src/assets.c
         ../src/assets.inl

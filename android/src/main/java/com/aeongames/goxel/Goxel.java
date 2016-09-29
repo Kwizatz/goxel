@@ -15,4 +15,8 @@ public class Goxel extends Activity
         mSurfaceView =
             ( GoxelSurfaceView ) findViewById ( R.id.SurfaceView );
     }
+    static
+    {
+        System.loadLibrary ( "goxel" );
+    }	
 }
