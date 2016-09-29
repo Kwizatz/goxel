@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.4.1)
 find_package(Java COMPONENTS Development)
 
-add_custom_command(OUTPUT com_aeongames_goxel_Goxel.h
-	COMMAND ${Java_JAVAH_EXECUTABLE} ARGS "-classpath" "$ENV{CLASSPATH};${CMAKE_CURRENT_SOURCE_DIR}/src/main/java" "com.aeongames.goxel.Goxel"
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/main/java/com/aeongames/goxel/Goxel.java
-	#WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src/main/java
+add_custom_command(OUTPUT src/main/jni/com_aeongames_goxel_GoxelSurfaceView.h
+	COMMAND ${Java_JAVAH_EXECUTABLE} ARGS "-classpath" "$ENV{CLASSPATH};${CMAKE_CURRENT_SOURCE_DIR}/src/main/java" "com.aeongames.goxel.GoxelSurfaceView"
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/main/java/com/aeongames/goxel/GoxelSurfaceView.java
+	WORKING_DIRECTORY src/main/jni
 	)
 
 set(CMAKE_C_FLAGS "-Wall -Werror -std=gnu99 -Wno-unknown-pragmas")
 set(CMAKE_CXX_FLAGS "-std=gnu++11 -Wall -Werror -Wno-narrowing -Wno-unknown-pragmas")
 include_directories(
+        ${CMAKE_CURRENT_BINARY_DIR}/src/main/jni
         ../src
         ../ext_src/glfw
         ../ext_src/imgui
@@ -17,7 +18,8 @@ include_directories(
         ../ext_src/stb
 )
 set(GOXEL_SOURCES
-		com_aeongames_goxel_Goxel.h
+		src/main/jni/com_aeongames_goxel_GoxelSurfaceView.h
+		src/main/jni/com_aeongames_goxel_GoxelSurfaceView.cpp
         ../src/action.c
         ../src/assets.c
         ../src/assets.inl
@@ -65,4 +67,4 @@ set(GOXEL_SOURCES
 set_source_files_properties(../ext_src/imgui/imgui.cpp PROPERTIES COMPILE_FLAGS "-DIMGUI_INCLUDE_IMGUI_USER_INL" )
 add_library(goxel SHARED ${GOXEL_SOURCES})
 set_target_properties(goxel PROPERTIES COMPILE_FLAGS "-DGLES3")
-target_link_libraries(goxel GLESv3 z)
+target_link_libraries(goxel GLESv3 log z)

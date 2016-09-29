@@ -18,11 +18,20 @@
 
 #include "goxel.h"
 
+#ifdef __ANDROID__
+/**@todo is this function really necesary?*/
+#include <android/log.h>
+void sys_log(const char *msg)
+{
+    __android_log_print(ANDROID_LOG_INFO,"Goxel","%s",msg);
+}
+#else
 void sys_log(const char *msg)
 {
     printf("%s\n", msg);
     fflush(stdout);
 }
+#endif
 
 const char *sys_get_data_dir(void)
 {

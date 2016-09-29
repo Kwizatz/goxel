@@ -13,6 +13,10 @@ class GoxelSurfaceView
     extends GLSurfaceView
     implements GLSurfaceView.Renderer
 {
+    private native void acquire();
+    private native void release();
+    private native void draw();
+    
     public GoxelSurfaceView ( Context context )
     {
         super ( context );
@@ -29,6 +33,19 @@ class GoxelSurfaceView
         setRenderer ( this );
     }
 
+    @Override
+    public void finalize() throws Throwable
+    {
+        try
+        {
+            release();
+        }
+        finally
+        {
+            super.finalize();
+        }
+    }
+    
     @Override
     public boolean onTouchEvent ( MotionEvent e )
     {
@@ -55,13 +72,13 @@ class GoxelSurfaceView
     public void onSurfaceCreated ( GL10 gl, EGLConfig config )
     {
         Log.i ( "Goxel", "onSurfaceCreated" );
-        GLES30.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        acquire();
     }
     @Override
     public void onDrawFrame ( GL10 gl )
     {
         Log.i ( "Goxel", "onDrawFrame" );
-        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
+        draw();
     }
     @Override
     public void onSurfaceChanged ( GL10 gl, int width, int height )
@@ -69,4 +86,8 @@ class GoxelSurfaceView
         Log.i ( "Goxel", "onSurfaceChanged" );
         GLES30.glViewport(0, 0, width, height);
     }
+    static
+    {
+        System.loadLibrary ( "goxel" );
+    }    
 }
