@@ -178,7 +178,7 @@ static int compile_shader(int shader, const char *code, const char *include)
 {
     int status, len;
     char *log;
-#ifndef GLES2
+#if !defined(GLES2) && !defined(GLES3)
     const char *pre = "#define highp\n#define mediump\n#define lowp\n";
 #else
     const char *pre = "";

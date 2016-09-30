@@ -49,7 +49,7 @@ static void generate_framebuffer(texture_t *tex)
     assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) ==
             GL_FRAMEBUFFER_COMPLETE);
 
-#ifndef GLES2
+#if !defined(GLES2) && !defined(GLES3)
     if (depth || stencil) {
         GL(glGenRenderbuffers(1, &tex->depth));
         GL(glBindRenderbuffer(GL_RENDERBUFFER, tex->depth));
@@ -65,7 +65,7 @@ static void generate_framebuffer(texture_t *tex)
             GL(glGenRenderbuffers(1, &tex->depth));
             GL(glBindRenderbuffer(GL_RENDERBUFFER, tex->depth));
             GL(glRenderbufferStorage(GL_RENDERBUFFER,
-                                     GL_DEPTH24_STENCIL8_OES, w, h));
+                                     GL_DEPTH24_STENCIL8, w, h));
             GL(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
                                          GL_RENDERBUFFER, tex->depth));
             GL(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT,

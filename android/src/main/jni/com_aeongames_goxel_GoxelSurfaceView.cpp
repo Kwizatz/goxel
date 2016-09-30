@@ -47,7 +47,14 @@ void JNICALL Java_com_aeongames_goxel_GoxelSurfaceView_draw
     goxel_iter(&gGoxel, &gInputs);
     memset(&gInputs, 0, sizeof(inputs_t));
     goxel_render(&gGoxel);
-    __android_log_print ( ANDROID_LOG_INFO,"Goxel","%d:%s",__LINE__,__FUNCTION__);
     /* Force Swap Buffers? */
     //eglSwapBuffers( eglGetCurrentDisplay(), eglGetCurrentSurface( EGL_DRAW ) );
+}
+void JNICALL Java_com_aeongames_goxel_GoxelSurfaceView_resize
+  (JNIEnv *, jobject, jint width, jint height)
+{
+    __android_log_print ( ANDROID_LOG_INFO,"Goxel","%d:%s",__LINE__,__FUNCTION__);
+    glViewport(0,0,width,height);
+    gInputs.window_size[0] = width;
+    gInputs.window_size[1] = height;
 }
