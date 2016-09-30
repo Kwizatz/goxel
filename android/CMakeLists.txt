@@ -67,4 +67,4 @@ set(GOXEL_SOURCES
 set_source_files_properties(../ext_src/imgui/imgui.cpp PROPERTIES COMPILE_FLAGS "-DIMGUI_INCLUDE_IMGUI_USER_INL" )
 add_library(goxel SHARED ${GOXEL_SOURCES})
 set_target_properties(goxel PROPERTIES COMPILE_FLAGS "-DGLES3")
-target_link_libraries(goxel GLESv3 log z)
+target_link_libraries(goxel GLESv3 EGL log z)

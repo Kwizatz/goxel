@@ -16,7 +16,7 @@ class GoxelSurfaceView
     private native void acquire();
     private native void release();
     private native void draw();
-    
+	
     public GoxelSurfaceView ( Context context )
     {
         super ( context );
@@ -32,7 +32,6 @@ class GoxelSurfaceView
         setEGLContextClientVersion ( 3 );
         setRenderer ( this );
     }
-
     @Override
     public void finalize() throws Throwable
     {
@@ -44,8 +43,7 @@ class GoxelSurfaceView
         {
             super.finalize();
         }
-    }
-    
+    }	
     @Override
     public boolean onTouchEvent ( MotionEvent e )
     {
@@ -84,10 +82,10 @@ class GoxelSurfaceView
     public void onSurfaceChanged ( GL10 gl, int width, int height )
     {
         Log.i ( "Goxel", "onSurfaceChanged" );
-        GLES30.glViewport(0, 0, width, height);
+        GLES30.glViewport(0,0,width,height);
     }
     static
     {
         System.loadLibrary ( "goxel" );
-    }    
+    }
 }

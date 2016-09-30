@@ -14,10 +14,7 @@ android {
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 23
-        ndk {
-            abiFilters 'armeabi'
-        }
+        targetSdkVersion 24
     }
     buildTypes {
         release {
